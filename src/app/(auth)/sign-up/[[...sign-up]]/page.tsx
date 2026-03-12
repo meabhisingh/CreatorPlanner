@@ -1,13 +1,11 @@
 "use client";
 
-// import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
-import { signIn, signUp } from "@/lib/auth/client";
-import { SiGithub } from "react-icons/si";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { Input } from "@/components/ui/input";
+import { signIn, signUp } from "@/lib/auth/client";
 import Link from "next/link";
+import { useState } from "react";
+import { SiGithub } from "react-icons/si";
 
 export default function SignupForm() {
   const [name, setName] = useState("");
@@ -16,7 +14,6 @@ export default function SignupForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,18 +27,15 @@ export default function SignupForm() {
     setLoading(true);
 
     try {
-      const { data, error } = await signUp.email({
+      const { error } = await signUp.email({
         name,
         email,
         password,
+        callbackURL: "/console",
       });
 
       if (error) throw new Error(error.message);
-
-      if (data) {
-        router.replace("/console");
-      }
-    } catch (err: any) {
+    } catch (err) {
       setError("Failed to create account");
     } finally {
       setLoading(false);
@@ -52,15 +46,12 @@ export default function SignupForm() {
     setLoading(true);
 
     try {
-      const { data, error } = await signIn.social({
+      const { error } = await signIn.social({
         provider: "github",
+        callbackURL: "/console",
       });
 
       if (error) throw new Error(error.message);
-
-      if (data) {
-        router.replace("/console");
-      }
     } catch (err) {
       setError("Invalid email or password");
     } finally {

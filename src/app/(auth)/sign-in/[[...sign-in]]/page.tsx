@@ -1,20 +1,17 @@
 "use client";
 
-// import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
-import { signIn } from "@/lib/auth/client";
-import { SiGithub } from "react-icons/si";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { Input } from "@/components/ui/input";
+import { signIn } from "@/lib/auth/client";
+import Link from "next/link";
+import { useState } from "react";
+import { SiGithub } from "react-icons/si";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,17 +19,14 @@ export default function LoginForm() {
     setLoading(true);
 
     try {
-      const { data, error } = await signIn.email({
+      const { error } = await signIn.email({
         email,
         password,
         rememberMe: true,
+        callbackURL: "/console",
       });
 
       if (error) throw new Error(error.message);
-
-      if (data) {
-        router.replace("/console");
-      }
     } catch (err) {
       setError("Invalid email or password");
     } finally {
@@ -44,17 +38,14 @@ export default function LoginForm() {
     setLoading(true);
 
     try {
-      const { data, error } = await signIn.social({
+      const { error } = await signIn.social({
         provider: "github",
+        callbackURL: "/console",
       });
 
       if (error) throw new Error(error.message);
-
-      if (data) {
-        router.replace("/console");
-      }
     } catch (err) {
-      setError("Invalid email or password");
+      setError("GitHub login failed");
     } finally {
       setLoading(false);
     }

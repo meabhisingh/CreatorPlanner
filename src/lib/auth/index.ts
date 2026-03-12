@@ -1,4 +1,5 @@
 import { betterAuth } from "better-auth";
+import { lastLoginMethod } from "better-auth/plugins";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
@@ -25,6 +26,7 @@ export const auth = betterAuth({
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
     },
   },
+ plugins:[lastLoginMethod()]
 });
 
 export async function getServerSession() {

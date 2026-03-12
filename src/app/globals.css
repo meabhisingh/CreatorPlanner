@@ -1,0 +1,162 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 99.2157%;
+    --foreground: 0 0% 0%;
+    --card: 0 0% 99.2157%;
+    --card-foreground: 0 0% 0%;
+    --popover: 0 0% 98.8235%;
+    --popover-foreground: 0 0% 0%;
+    --primary: 15.3913 90.5512% 49.8039%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 214.2857 24.1379% 94.3137%;
+    --secondary-foreground: 0 0% 3.1373%;
+    --muted: 0 0% 96.0784%;
+    --muted-foreground: 0 0% 32.1569%;
+    --accent: 15 100% 96.0784%;
+    --accent-foreground: 14.9239 94.2584% 40.9804%;
+    --destructive: 358.4416 74.7573% 59.6078%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 17.0732% 91.9608%;
+    --input: 0 0% 92.1569%;
+    --ring: 15.3913 90.5512% 49.8039%;
+    --chart-1: 15.3913 90.5512% 49.8039%;
+    --chart-2: 9.2784 100% 80.9804%;
+    --chart-3: 24.8571 98.1308% 58.0392%;
+    --chart-4: 217.0787 76.7241% 54.5098%;
+    --chart-5: 40.8696 100% 72.9412%;
+    --sidebar: 210 42.8571% 97.2549%;
+    --sidebar-foreground: 0 0% 0%;
+    --sidebar-primary: 0 0% 0%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 16.1538 100% 94.902%;
+    --sidebar-accent-foreground: 0 0% 0%;
+    --sidebar-border: 0 0% 92.1569%;
+    --sidebar-ring: 0 0% 0%;
+    --font-sans: Plus Jakarta Sans, sans-serif;
+    --font-serif: Lora, serif;
+    --font-mono: IBM Plex Mono, monospace;
+    --radius: 1.4rem;
+    --shadow-x: 0;
+    --shadow-y: 1px;
+    --shadow-blur: 3px;
+    --shadow-spread: 0px;
+    --shadow-opacity: 0.1;
+    --shadow-color: oklch(0 0 0);
+    --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+    --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+    --shadow-sm:
+      0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
+    --shadow:
+      0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
+    --shadow-md:
+      0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 2px 4px -1px hsl(0 0% 0% / 0.1);
+    --shadow-lg:
+      0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 4px 6px -1px hsl(0 0% 0% / 0.1);
+    --shadow-xl:
+      0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 8px 10px -1px hsl(0 0% 0% / 0.1);
+    --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+    --tracking-normal: 0em;
+    --spacing: 0.27rem;
+  }
+
+  .dark {
+    --background: 0 0% 5.098%;
+    --foreground: 0 0% 94.1176%;
+    --card: 0 0% 7.0588%;
+    --card-foreground: 0 0% 94.1176%;
+    --popover: 240 1.9608% 10%;
+    --popover-foreground: 0 0% 94.1176%;
+    --primary: 15.3913 90.5512% 49.8039%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 4% 16%;
+    --secondary-foreground: 0 0% 94%;
+    --muted: 240 2.7778% 14.1176%;
+    --muted-foreground: 0 0% 58.8235%;
+    --accent: 14.7368 96.6102% 23.1373%;
+    --accent-foreground: 0 0% 99.6078%;
+    --destructive: 0 94.7712% 70%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 12.1569%;
+    --input: 0 0% 23.1373%;
+    --ring: 15.3913 90.5512% 49.8039%;
+    --chart-1: 15.3913 90.5512% 49.8039%;
+    --chart-2: 49.9571 91.3725% 50%;
+    --chart-3: 0 93.5484% 81.7647%;
+    --chart-4: 217.5484 87.5706% 65.2941%;
+    --chart-5: 40.8696 100% 72.9412%;
+    --sidebar: 0 0% 7.0588%;
+    --sidebar-foreground: 0 0% 94.1176%;
+    --sidebar-primary: 15.3913 90.5512% 49.8039%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 15.4839 93.9394% 12.9412%;
+    --sidebar-accent-foreground: 14.9296 94.6667% 44.1176%;
+    --sidebar-border: 222.8571 6.422% 21.3725%;
+    --sidebar-ring: 15.3913 90.5512% 49.8039%;
+    --font-sans: Plus Jakarta Sans, sans-serif;
+    --font-serif: Lora, serif;
+    --font-mono: IBM Plex Mono, monospace;
+    --radius: 1.4rem;
+    --shadow-x: 0;
+    --shadow-y: 1px;
+    --shadow-blur: 3px;
+    --shadow-spread: 0px;
+    --shadow-opacity: 0.1;
+    --shadow-color: oklch(0 0 0);
+    --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+    --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+    --shadow-sm:
+      0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
+    --shadow:
+      0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
+    --shadow-md:
+      0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 2px 4px -1px hsl(0 0% 0% / 0.1);
+    --shadow-lg:
+      0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 4px 6px -1px hsl(0 0% 0% / 0.1);
+    --shadow-xl:
+      0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 8px 10px -1px hsl(0 0% 0% / 0.1);
+    --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* 1. Set the width of the scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+/* 2. Make the track (background) invisible */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* 3. Style the thumb (the part you drag) for LIGHT mode */
+::-webkit-scrollbar-thumb {
+  background-color: #e4e4e7; /* Tailwind zinc-200 */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #d4d4d8; /* Tailwind zinc-300 */
+}
+
+/* 4. Style the thumb for DARK mode (assuming you use a .dark class on your HTML tag) */
+.dark ::-webkit-scrollbar-thumb {
+  background-color: #27272a; /* Tailwind zinc-800 */
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background-color: #3f3f46; /* Tailwind zinc-700 */
+}

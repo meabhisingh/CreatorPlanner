@@ -1,0 +1,195 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id                     String                  @id @default(cuid())
+  email                  String                  @unique
+  password               String?
+  openaiApiKey           String?
+  ideas                  Idea[]
+  videos                 Video[]
+  series                 Series[]
+  templates              Template[]
+  name                   String
+  notificationPreference NotificationPreference?
+  channel                Channel?
+  emailVerified          Boolean                 @default(false)
+  image                  String?
+  createdAt              DateTime                @default(now())
+  updatedAt              DateTime                @updatedAt
+  sessions               Session[]
+  accounts               Account[]
+
+  @@map("user")
+}
+
+model NotificationPreference {
+  id                   String  @id @default(cuid())
+  productionReminders  Boolean @default(true)
+  aiGenerationAlerts   Boolean @default(true)
+  weeklyProgressReport Boolean @default(false)
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("notification_preference")
+}
+
+model Channel {
+  id          String  @id @default(cuid())
+  name        String
+  handle      String?
+  channelUrl  String?
+  description String?
+  language    String?
+  country     String?
+
+  primaryNiche String
+  tags         String[]
+
+  uploadFrequency UploadFrequency
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+enum UploadFrequency {
+  Daily
+  Twice_a_week
+  Weekly
+  Monthly
+}
+
+model Idea {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  title       String
+  description String?
+  niche       String?
+  tags        String[]
+  status      String   @default("Idea") // Idea, Research, Script, Recording, Editing, Scheduled, Published
+  priority    String   @default("Medium") // Low, Medium, High
+  createdAt   DateTime @default(now())
+
+  @@index([userId])
+}
+
+model Video {
+  id             String    @id @default(cuid())
+  userId         String
+  user           User      @relation(fields: [userId], references: [id])
+  title          String
+  description    String?
+  thumbnailIdea  String?
+  thumbnailKey   String?
+  hook           String?
+  scriptOutline  String?
+  status         String    @default("Script")
+  publishDate    DateTime?
+  deadlineDate   DateTime?
+  tags           String[]
+  keywords       String[]
+  targetAudience String?
+  seriesId       String?
+  series         Series?   @relation(fields: [seriesId], references: [id])
+  tasks          Task[]
+  notes          String?
+  createdAt      DateTime  @default(now())
+
+  @@index([userId])
+  @@index([userId, status])
+  @@index([userId, publishDate])
+}
+
+model Task {
+  id        String  @id @default(cuid())
+  videoId   String
+  video     Video   @relation(fields: [videoId], references: [id])
+  taskName  String
+  completed Boolean @default(false)
+
+  @@index([videoId])
+}
+
+model Series {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  name        String
+  description String?
+  videos      Video[]
+  createdAt   DateTime @default(now())
+
+  @@index([userId])
+}
+
+model Template {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  name        String
+  description String?
+  structure   Json
+  usage       Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  @@index([userId])
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
